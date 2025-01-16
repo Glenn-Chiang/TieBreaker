@@ -3,7 +3,7 @@ import { Link as RouterLink} from "react-router";
 
 export default function NavBar() {
   return (
-    <AppBar>
+    <AppBar position="sticky">
       <Toolbar>
         <Link
           component={RouterLink}
