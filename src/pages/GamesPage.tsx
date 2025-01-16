@@ -1,11 +1,15 @@
 import { Gamepad } from "@mui/icons-material";
-import { Card, CardHeader, Icon, Stack, Typography } from "@mui/material";
-import { Game } from "../data/models";
-
-const games: Game[] = [
-  { id: 1, name: "Game 1", description: "description 1" },
-  { id: 2, name: "Game 2", description: "description 2" },
-];
+import {
+  Card,
+  CardHeader,
+  Grid2 as Grid,
+  Icon,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Game, GAMES } from "../data/games";
+import { Link as RouterLink } from "react-router";
 
 export default function GamesPage() {
   return (
@@ -14,21 +18,25 @@ export default function GamesPage() {
         <Icon>
           <Gamepad />
         </Icon>
-        <Typography variant="h6">Select Game</Typography>
+        <Typography variant="h5">Select Game</Typography>
       </Stack>
-      <Stack gap={2}>
-        {games.map((game) => (
-          <GameItem key={game.name} game={game} />
+      <Grid container spacing={1}>
+        {GAMES.map((game) => (
+          <Grid size={{ xs: 12, sm: 6 }} height={200} key={game.name}>
+            <GameItem game={game} />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
     </>
   );
 }
 
 function GameItem({ game }: { game: Game }) {
   return (
-    <Card>
-      <CardHeader title={game.name} subheader={game.description} />
-    </Card>
+    <Link to={`/games/${game.id}`} component={RouterLink} underline="none">
+      <Card sx={{ height: "100%" }}>
+        <CardHeader title={game.name} subheader={game.description} />
+      </Card>
+    </Link>
   );
 }
