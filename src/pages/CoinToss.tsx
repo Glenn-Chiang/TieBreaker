@@ -1,5 +1,3 @@
 export default function CoinToss() {
-  return (
-    <></>
-  )
+  return <>Coint Toss</>;
 }
