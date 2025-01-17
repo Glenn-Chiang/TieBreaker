@@ -12,7 +12,7 @@ export default function ClickTest() {
   const [gameState, setGameState] = useState<GameState>("pre-game");
 
   // Players have to click as many times as they can within this time (in seconds)
-  const TEST_DURATION = 2;
+  const TEST_DURATION = 10;
 
   const [scores, setScores] = useState([0, 0]);
 

@@ -22,7 +22,7 @@ export default function GamesPage() {
         justifyContent={"center"}
         alignItems={"center"}
         color={"white"}
-        sx={{ backgroundColor: "#2196f3"}}
+        sx={{ backgroundColor: "#2196f3" }}
       >
         <Stack direction={"row"} gap={1} alignItems={"center"}>
           <Icon>
@@ -49,7 +49,7 @@ function GameCard({ gameData }: { gameData: Game }) {
         <CardHeader title={gameData.name} />
         <CardMedia
           component={"img"}
-          image={gameData.image}
+          image={gameData.icon}
           height={200}
           sx={{ objectFit: "contain" }}
         />

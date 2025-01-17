@@ -6,7 +6,7 @@ export default function BaseLayout() {
   return (
     <>
       <NavBar />
-      <Box>
+      <Box padding={1}>
         <Outlet />
       </Box>
     </>
