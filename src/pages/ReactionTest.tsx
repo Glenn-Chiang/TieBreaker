@@ -1,7 +1,7 @@
-import { Alert, Box, Button, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, Stack } from "@mui/material";
+import { useState } from "react";
 import GameBanner from "../components/GameBanner";
 import { GAMES } from "../data/games";
-import { useState } from "react";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 

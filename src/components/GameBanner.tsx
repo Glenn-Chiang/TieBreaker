@@ -5,7 +5,6 @@ import { Game } from "../data/games";
 export default function GameBanner({ gameData}: { gameData: Game }) {
   return (
     <Card sx={{ textAlign: "center" }}>
-      <CardMedia component={"img"} image={gameData.image}/>
       <CardContent>
         <Stack gap={2}>
           <Typography variant="h4">{gameData.name}</Typography>
@@ -14,6 +13,7 @@ export default function GameBanner({ gameData}: { gameData: Game }) {
           </Typography>
         </Stack>
       </CardContent>
+      <CardMedia component={"img"} image={gameData.image} height={200} sx={{objectFit: "contain"}}/>
     </Card>
   );
 }
