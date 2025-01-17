@@ -11,7 +11,7 @@ export const GAMES: Game[] = [
   {
     id: "reaction-test",
     name: "Reaction Test",
-    description: "When the blue box turns red, click as fast as you can",
+    description: "When the blue buttons turns green, click as fast as you can. If you click early, you lose immediately.",
   },
   { id: "stat-challenge", name: "Stat Challenge", description: "description" },
 ];
