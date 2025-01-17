@@ -2,6 +2,7 @@ import { Alert, Box, Button, Stack } from "@mui/material";
 import { useState } from "react";
 import GameBanner from "../components/GameBanner";
 import { GAMES } from "../data/games";
+import { StartButton } from "../components/StartButton";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
@@ -19,7 +20,7 @@ export default function ReactionTest() {
     setGameState("in-game");
 
     // Randomly determine the time at which the buttons will activate
-    const activationTime = getRandomTimer()
+    const activationTime = Math.floor(Math.random() * 5) + 1;
 
     setTimeout(() => {
       setButtonActive(true)
@@ -65,23 +66,6 @@ export default function ReactionTest() {
         )}
       </Box>
     </>
-  );
-}
-
-// Randomly determine the time at which the buttons will activate. Between 1 and 5 seconds.
-function getRandomTimer() {
-  return Math.floor(Math.random() * 5) + 1;
-}
-
-interface StartButtonProps {
-  handleClick: () => void;
-}
-
-function StartButton({ handleClick }: StartButtonProps) {
-  return (
-    <Button onClick={handleClick} variant="contained">
-      Start
-    </Button>
   );
 }
 

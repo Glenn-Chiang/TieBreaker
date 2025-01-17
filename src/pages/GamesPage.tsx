@@ -46,7 +46,7 @@ function GameCard({ gameData }: { gameData: Game }) {
   return (
     <Link to={`/games/${gameData.id}`} component={RouterLink} underline="none">
       <Card sx={{ height: "100%" }}>
-        <CardHeader title={gameData.name} subheader={gameData.description} />
+        <CardHeader title={gameData.name} />
         <CardMedia
           component={"img"}
           image={gameData.image}

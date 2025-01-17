@@ -1,4 +1,5 @@
 import boltIcon from "../assets/bolt_icon.webp"
+import cursorIcon from "../assets/cursor_icon.webp"
 
 export interface Game {
   id: string;
@@ -16,6 +17,12 @@ export const GAMES: Game[] = [
     name: "Reaction Test",
     image: boltIcon,
     description: "When the blue buttons turns green, click as fast as you can. If you click early, you lose immediately.",
+  },
+  {
+    id: "click-test",
+    name: "Clicking Test",
+    image: cursorIcon,
+    description: "Click the button as many times as you can before the timer runs out"
   },
   { id: "stat-challenge", name: "Stat Challenge", description: "description" },
 ];
