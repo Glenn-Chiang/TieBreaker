@@ -1,9 +1,11 @@
-import { Card, CardContent, Stack, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Stack, Typography } from "@mui/material";
 import { Game } from "../data/games";
 
+// Banner displayed at the top of each game's page, displaying the title and description of the game
 export default function GameBanner({ gameData}: { gameData: Game }) {
   return (
     <Card sx={{ textAlign: "center" }}>
+      <CardMedia component={"img"} image={gameData.image}/>
       <CardContent>
         <Stack gap={2}>
           <Typography variant="h4">{gameData.name}</Typography>

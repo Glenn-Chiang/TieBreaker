@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, Stack, Typography } from "@mui/material";
 import GameBanner from "../components/GameBanner";
 import { GAMES } from "../data/games";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export default function ReactionTest() {
           </Stack>
         ) : (
           <Stack spacing={1}>
-            <Typography>Player {winnerId} wins!</Typography>
+            <Alert color="success">Player {winnerId} wins!</Alert>
             <StartButton handleClick={startGame} />
           </Stack>
         )}
@@ -68,9 +68,9 @@ export default function ReactionTest() {
   );
 }
 
-// Randomly determine the time at which the buttons will activate. Between 1 and 10 seconds.
+// Randomly determine the time at which the buttons will activate. Between 1 and 5 seconds.
 function getRandomTimer() {
-  return Math.floor(Math.random() * 2) + 1;
+  return Math.floor(Math.random() * 5) + 1;
 }
 
 interface StartButtonProps {

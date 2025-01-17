@@ -1,13 +1,11 @@
-import { Route } from "react-router";
-import { BrowserRouter, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import BaseLayout from "./pages/BaseLayout";
-import HomePage from "./pages/HomePage";
-import PlayersPage from "./pages/PlayersPage";
-import GamesPage from "./pages/GamesPage";
 import CoinToss from "./pages/CoinToss";
 import DiceRoll from "./pages/DiceRoll";
-import SpinTheWheel from "./pages/SpinTheWheel";
+import GamesPage from "./pages/GamesPage";
+import PlayersPage from "./pages/PlayersPage";
 import ReactionTest from "./pages/ReactionTest";
+import SpinTheWheel from "./pages/SpinTheWheel";
 import StatChallenge from "./pages/StatChallenge";
 
 export default function AppRouter() {
@@ -15,7 +13,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<BaseLayout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<GamesPage />} />
           <Route path="players" element={<PlayersPage />} />
 
           <Route path="games">
