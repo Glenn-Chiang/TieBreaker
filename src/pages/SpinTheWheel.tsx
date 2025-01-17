@@ -76,6 +76,17 @@ export default function SpinTheWheel() {
         </Box>
         <Box
           sx={{
+            width: 0,
+            height: 0,
+            borderLeft: "10px solid transparent", // Left side transparent
+            borderRight: "10px solid transparent", // Right side transparent
+            borderTop: "20px solid black", // Bottom visible to form the triangle
+            position: "absolute",
+            left: "200px",
+          }}
+        />
+        <Box
+          sx={{
             position: "absolute",
             top: "200px", // Centered overlap
             left: "200px",
