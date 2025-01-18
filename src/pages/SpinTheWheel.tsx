@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Button, Box } from "@mui/material";
 
 export default function SpinTheWheel() {
+  
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [numElements, setNumElements] = useState<number>(2);
   const [currentAngle, setCurrentAngle] = useState<number>(0);
