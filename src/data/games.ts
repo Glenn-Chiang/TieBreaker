@@ -57,5 +57,12 @@ export const GAMES: Game[] = [
     description: "Take turns to pump the balloon until it pops",
     icon: "/src/assets/balloon_icon.png",
     maxPlayers: null
+  },
+  {
+    id: "typing-test",
+    name: "Typing Test",
+    description: "Type as many words as you can within the time limit",
+    icon: "/src/assets/keyboard_icon.png",
+    maxPlayers: null
   }
 ];
