@@ -8,12 +8,7 @@ import GamesPage from "./pages/GamesPage";
 import ReactionTest from "./pages/ReactionTest";
 import SpinTheWheel from "./pages/SpinTheWheel";
 import StatChallenge from "./pages/StatChallenge";
-<<<<<<< HEAD
-import ClickTest from "./pages/ClickTest";
-import GamePageLayout from "./pages/GamePageLayout";
 import BalloonPop from "./pages/BalloonPop";
-=======
->>>>>>> f59e3e24e3e781dc9c3c347c5f675f9f34dc5330
 
 export default function AppRouter() {
   return (
