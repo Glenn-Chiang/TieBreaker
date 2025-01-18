@@ -1,17 +1,13 @@
 import { Gamepad } from "@mui/icons-material";
 import {
   Box,
-  Card,
-  CardHeader,
-  CardMedia,
   Grid2 as Grid,
   Icon,
-  Link,
   Stack,
-  Typography,
+  Typography
 } from "@mui/material";
-import { Game, GAMES } from "../data/games";
-import { Link as RouterLink } from "react-router";
+import { GAMES } from "../data/games";
+import { GameCard } from "../components/GameCard";
 
 export default function GamesPage() {
   return (
@@ -39,21 +35,5 @@ export default function GamesPage() {
         ))}
       </Grid>
     </>
-  );
-}
-
-function GameCard({ gameData }: { gameData: Game }) {
-  return (
-    <Link to={`/games/${gameData.id}`} component={RouterLink} underline="none">
-      <Card sx={{ height: "100%" }}>
-        <CardHeader title={gameData.name} />
-        <CardMedia
-          component={"img"}
-          image={gameData.icon}
-          height={200}
-          sx={{ objectFit: "contain" }}
-        />
-      </Card>
-    </Link>
   );
 }
