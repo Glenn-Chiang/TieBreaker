@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Typography, Container, keyframes, useTheme } from "@mui/material";
 
 // Generate question button flicker animation
@@ -22,7 +22,7 @@ function StatChallenge() {
     "Most number of SUs used?",
     "Most cooked for uni?",
     "Stays nearest to campus?",
-    "Highest GPA/CAP?", 
+    "Highest GPA/CAP?",
   ];
 
   // Map each question to a corresponding image
@@ -32,13 +32,20 @@ function StatChallenge() {
     "Most number of SUs used?": "/src/assets/su.jpeg",
     "Most cooked for uni?": "/src/assets/cooked.jpeg",
     "Stays nearest to campus?": "/src/assets/nus.jpg",
-    "Highest GPA/CAP?" : "/src/assets/grades.png" // Example image for "Stays nearest to campus"
+    "Highest GPA/CAP?": "/src/assets/grades.png", // Example image for "Stays nearest to campus"
   };
 
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
   const [gameOver, setGameOver] = useState(false); // Track if all questions have been asked
-  const [gameStarted, setGameStarted] = useState(false); // Track if the game has started
+
+  // This effect will generate a new question after game reset
+  useEffect(() => {
+    if (gameOver) {
+      // Generate a new question after game over is reset
+      generateQuestion();
+    }
+  }, [gameOver]); // Only runs when `gameOver` is true
 
   function getRandomQuestion() {
     if (remainingQuestions.length === 0) {
@@ -55,17 +62,13 @@ function StatChallenge() {
   }
 
   function generateQuestion() {
-    if (!gameStarted) {
-      setGameStarted(true); // Start the game
-    }
-
     if (gameOver) {
-      // Reset the game state immediately
+      // Reset the game state
       setRemainingQuestions(questions);
       setGameOver(false);
     }
-  
-    // Generate the question (this part happens immediately after the state reset or normally)
+
+    // Generate a new question after resetting or if game is ongoing
     const newQuestion = getRandomQuestion();
     setCurrentQuestion(newQuestion);
   }
@@ -81,7 +84,7 @@ function StatChallenge() {
           boxShadow: theme.shadows[4], // Use theme shadow
         }}
       >
-        {!gameStarted && (
+        {!currentQuestion && (
           <>
             <Typography
               variant="body1"
