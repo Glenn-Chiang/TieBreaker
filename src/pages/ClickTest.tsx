@@ -1,8 +1,9 @@
-import { Box, Button, LinearProgress, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useRef, useState } from "react";
 import { useConfetti } from "../components/ConfettiProvider";
 import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
+import { TimerBar } from "../components/TimerBar";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
@@ -86,15 +87,6 @@ export default function ClickTest() {
   );
 }
 
-interface TimerBarProps {
-  timer: number;
-  maxTimer: number;
-}
-
-function TimerBar({ timer, maxTimer }: TimerBarProps) {
-  const normalizedValue = Math.floor((timer / maxTimer) * 100);
-  return <LinearProgress variant="determinate" value={normalizedValue} />;
-}
 
 interface ClickTestButtonProps {
   playerId: number;

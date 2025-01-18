@@ -64,5 +64,12 @@ export const GAMES: Game[] = [
     description: "In a public space, choose a word, take turns to say the word with increasing volume, first one who chickens out loses",
     icon: "/src/assets/balloon_icon.jpg",
     maxPlayers: null
+  },
+  {
+    id: "typing-test",
+    name: "Typing Test",
+    description: "Type as many words as you can within the time limit",
+    icon: "/src/assets/keyboard_icon.png",
+    maxPlayers: null
   }
 ];
