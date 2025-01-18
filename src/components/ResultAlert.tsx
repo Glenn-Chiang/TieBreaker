@@ -17,7 +17,7 @@ export default function ResultAlert({ winnerId }: ResultAlertProps) {
       icon={false}
       color={"success"}
     >
-      <Typography variant="h6">Player {winnerId} wins!</Typography>
+      <Typography variant="h6">{winnerId ? `Player ${winnerId} wins!` : "Tie!"}</Typography>
     </Alert>
   );
 }

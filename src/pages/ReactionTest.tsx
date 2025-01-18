@@ -1,27 +1,23 @@
 import { Box, Button, Stack } from "@mui/material";
 import { useState } from "react";
-import GameBanner from "../components/GameBanner";
+import { useConfetti } from "../components/ConfettiProvider";
 import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
-import { GAMES } from "../data/games";
-import { useConfetti } from "../components/ConfettiProvider";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
 export default function ReactionTest() {
-  const gameData = GAMES.find((data) => data.id === "reaction-test")!;
-
   const [gameState, setGameState] = useState<GameState>("pre-game");
   const [winnerId, setWinnerId] = useState<null | number>(null);
 
   // When buttonActive is true, the buttons turn green and players can start clicking
   const [buttonActive, setButtonActive] = useState(false);
-  
-  const confetti = useConfetti()
+
+  const confetti = useConfetti();
 
   const startGame = () => {
     setGameState("in-game");
-    confetti.deactivate()
+    confetti.deactivate();
 
     // Randomly determine the time at which the buttons will activate
     const activationTime = Math.floor(Math.random() * 5) + 1;
@@ -42,41 +38,29 @@ export default function ReactionTest() {
       setWinnerId(playerId === 1 ? 2 : 1);
     }
 
-    confetti.activate()
+    confetti.activate();
   };
 
   return (
-    <>
-      <GameBanner gameData={gameData} />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 2,
-          gap: 1
-        }}
-      >
-        {gameState === "in-game" ? (
-          <Stack spacing={1} width={"100%"}>
-            <ReactionButton
-              playerId={1}
-              isActive={buttonActive}
-              handleClick={handleClick}
-            />
-            <ReactionButton
-              playerId={2}
-              isActive={buttonActive}
-              handleClick={handleClick}
-            />
-          </Stack>
-        ) : (
-          <StartButton handleClick={startGame} />
-        )}
-        {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
-      </Box>
-    </>
+    <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
+      {gameState === "in-game" ? (
+        <Stack spacing={1} width={"100%"}>
+          <ReactionButton
+            playerId={1}
+            isActive={buttonActive}
+            handleClick={handleClick}
+          />
+          <ReactionButton
+            playerId={2}
+            isActive={buttonActive}
+            handleClick={handleClick}
+          />
+        </Stack>
+      ) : (
+        <StartButton handleClick={startGame} />
+      )}
+      {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
+    </Box>
   );
 }
 

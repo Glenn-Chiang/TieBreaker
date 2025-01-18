@@ -1,14 +1,11 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Box, Button, Icon, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import GameBanner from "../components/GameBanner";
 import ResultAlert from "../components/ResultAlert";
-import { GAMES } from "../data/games";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
 export default function SpinTheWheel() {
-  const gameData = GAMES.find((data) => data.id === "spin-the-wheel")!;
   const [gameState, setGameState] = useState<GameState>("pre-game");
   const [winnerId, setWinnerId] = useState<number | null>(null);
   const [numPlayers, setNumPlayers] = useState<number>(2);
@@ -98,62 +95,54 @@ export default function SpinTheWheel() {
   };
 
   return (
-    <>
-      <GameBanner gameData={gameData} />
-      <Box
-        padding={2}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        gap={1}
-      >
-        {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
+    <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
+      {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
 
-        <Box position={"relative"} sx={{ objectFit: "contain" }}>
-          <canvas
-            ref={canvasRef}
-            width={400}
-            height={400}
-            style={{ border: "2px solid #000", borderRadius: "50%" }}
-          />
-          <Box
-            sx={{
-              width: 0,
-              height: 0,
-              borderLeft: "10px solid transparent", // Left side transparent
-              borderRight: "10px solid transparent", // Right side transparent
-              borderTop: "20px solid black", // Bottom visible to form the triangle
-              position: "absolute",
-              top: 0,
-              left: 195,
-            }}
-          />
-        </Box>
-
-        <Button variant="contained" onClick={spinWheel}>
-          Spin
-        </Button>
-
-        <Stack direction={"row"}>
-          <Button
-            onClick={() => setNumPlayers(numPlayers + 1)}
-            disabled={numPlayers > 5}
-          >
-            <Icon>
-              <Add />
-            </Icon>
-          </Button>
-          <Button
-            onClick={() => setNumPlayers(numPlayers - 1)}
-            disabled={numPlayers < 3}
-          >
-            <Icon>
-              <Remove />
-            </Icon>
-          </Button>
-        </Stack>
+      <Box position={"relative"} display={"flex"} justifyContent={"center"}>
+        <canvas
+          ref={canvasRef}
+          width={300}
+          height={300}
+          style={{ border: "2px solid #000", borderRadius: "50%" }}
+        />
+        <Box
+          sx={{
+            width: 0,
+            height: 0,
+            borderLeft: "10px solid transparent", // Left side transparent
+            borderRight: "10px solid transparent", // Right side transparent
+            borderTop: "20px solid black", // Bottom visible to form the triangle
+            position: "absolute",
+            top: 0,
+            left: "calc(50% - 5px)",
+          }}
+        />
       </Box>
-    </>
+
+      <Button variant="contained" onClick={spinWheel}>
+        Spin
+      </Button>
+
+      <Stack width={"100%"} direction={"row"}>
+        <Button
+        fullWidth
+          onClick={() => setNumPlayers(numPlayers + 1)}
+          disabled={numPlayers > 5}
+        >
+          <Icon>
+            <Add />
+          </Icon>
+        </Button>
+        <Button
+        fullWidth
+          onClick={() => setNumPlayers(numPlayers - 1)}
+          disabled={numPlayers < 3}
+        >
+          <Icon>
+            <Remove />
+          </Icon>
+        </Button>
+      </Stack>
+    </Box>
   );
 }

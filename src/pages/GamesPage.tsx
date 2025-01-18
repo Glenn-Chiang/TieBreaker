@@ -1,19 +1,42 @@
-import { Gamepad } from "@mui/icons-material";
+import { Gamepad, Shuffle } from "@mui/icons-material";
 import {
   Box,
-  Card,
-  CardHeader,
-  CardMedia,
+  Button,
   Grid2 as Grid,
   Icon,
-  Link,
   Stack,
   Typography,
 } from "@mui/material";
 import { Game, GAMES } from "../data/games";
-import { Link as RouterLink } from "react-router";
+import { GameCard } from "../components/GameCard";
+import { useState } from "react";
+import { SelectGameDialog } from "../components/SelectGameDialog";
+import { useNavigate } from "react-router";
 
 export default function GamesPage() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null); // id of selected game
+
+  // What happens when the user clicks the Select Random button
+  const handleClickRandom = () => {
+    // Randomly pick a game from the list
+    const game = GAMES[Math.floor(Math.random() * GAMES.length)];
+    setSelectedGame(game);
+    setDialogOpen(true);
+  };
+
+  const navigate = useNavigate()
+
+  // What happens when the user confirms the selected game
+  const handleConfirmSelected = () => {
+    navigate(`/games/${selectedGame?.id}`)
+  }
+
+  const handleClose = () => {
+    setDialogOpen(false);
+    setSelectedGame(null);
+  };
+
   return (
     <>
       <Box
@@ -31,6 +54,20 @@ export default function GamesPage() {
           <Typography variant="h4">Select Game</Typography>
         </Stack>
       </Box>
+
+      <Box padding={1}>
+        <RandomGameButton handleClick={handleClickRandom} />
+      </Box>
+
+      {dialogOpen && (
+        <SelectGameDialog
+          open={dialogOpen}
+          handleClose={handleClose}
+          game={selectedGame!}
+          handleConfirm={handleConfirmSelected}
+        />
+      )}
+
       <Grid padding={1} container spacing={1}>
         {GAMES.map((game) => (
           <Grid size={{ xs: 12, sm: 6 }} key={game.name}>
@@ -42,18 +79,14 @@ export default function GamesPage() {
   );
 }
 
-function GameCard({ gameData }: { gameData: Game }) {
+interface RandomGameButtonProps {
+  handleClick: () => void;
+}
+
+function RandomGameButton({ handleClick }: RandomGameButtonProps) {
   return (
-    <Link to={`/games/${gameData.id}`} component={RouterLink} underline="none">
-      <Card sx={{ height: "100%" }}>
-        <CardHeader title={gameData.name} />
-        <CardMedia
-          component={"img"}
-          image={gameData.icon}
-          height={200}
-          sx={{ objectFit: "contain" }}
-        />
-      </Card>
-    </Link>
+    <Button variant="contained" fullWidth onClick={handleClick} startIcon={<Shuffle/>}>
+      Select Random
+    </Button>
   );
 }
