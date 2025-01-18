@@ -4,7 +4,7 @@ import { Link as RouterLink} from "react-router";
 export default function NavBar() {
   return (
     <AppBar position="sticky" color="inherit" >
-      <Toolbar>
+      <Toolbar >
         <Link
           component={RouterLink}
           to={"/"}

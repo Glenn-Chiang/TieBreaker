@@ -6,9 +6,16 @@ import { ConfettiProvider } from "../components/ConfettiProvider";
 export default function GamePageLayout() {
   return (
     <ConfettiProvider>
-      <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} alignItems={"start"}>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"start"}
+      >
         <BackButton />
-        <Outlet />
+        <Box>
+          <Outlet />
+        </Box>
       </Box>
     </ConfettiProvider>
   );
