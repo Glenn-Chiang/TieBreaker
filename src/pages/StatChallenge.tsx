@@ -23,8 +23,9 @@ function StatChallenge() {
     "Fastest 2.4km timing?",
     "Heaviest squat/bench/deadlift?",
     "Most number of SUs used?",
-    "Most cooked in uni?",
+    "Most cooked for uni?",
     "Stays nearest to campus?",
+    "Highest GPA/CAP?", 
   ];
 
   // Map each question to a corresponding image
@@ -32,8 +33,9 @@ function StatChallenge() {
     "Fastest 2.4km timing?": "/src/assets/run.jpeg",
     "Heaviest squat/bench/deadlift?": "/src/assets/sbd.jpg",
     "Most number of SUs used?": "/src/assets/su.jpeg",
-    "Most cooked in uni?": "/src/assets/dj.jpeg",
-    "Stays nearest to campus?": "/src/assets/nus.jpg", // Example image for "Stays nearest to campus"
+    "Most cooked for uni?": "/src/assets/cooked.jpeg",
+    "Stays nearest to campus?": "/src/assets/nus.jpg",
+    "Highest GPA/CAP?" : "/src/assets/grades.png" // Example image for "Stays nearest to campus"
   };
 
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
@@ -56,22 +58,21 @@ function StatChallenge() {
 
   function generateQuestion() {
     if (gameOver) {
-      // Reset the game when it's over, but generate a new question immediately
+      // Reset the game state immediately
       setRemainingQuestions(questions);
       setGameOver(false);
-      const newQuestion = getRandomQuestion();
-      setCurrentQuestion(newQuestion);
-    } else {
-      const newQuestion = getRandomQuestion();
-      setCurrentQuestion(newQuestion);
     }
+  
+    // Generate the question (this part happens immediately after the state reset or normally)
+    const newQuestion = getRandomQuestion();
+    setCurrentQuestion(newQuestion);
   }
 
   return (
     <>
       <GameBanner gameData={gameData} />
       <Container
-        maxWidth="sm"
+        maxWidth = {false}
         sx={{
           padding: "40px",
           borderRadius: "12px",
@@ -86,7 +87,7 @@ function StatChallenge() {
             marginBottom: "10px",
           }}
         >
-          Who decides? Let your stats do the work!
+          Let the stats speak for themselves!
         </Typography>
         <Typography
           variant="body2"
@@ -120,8 +121,8 @@ function StatChallenge() {
                   src={questionImages[currentQuestion]}
                   alt={currentQuestion}
                   style={{
-                    maxWidth: "100%",
-                    height: "auto",
+                    maxWidth: "50%",
+                    height: "50hv",
                     marginBottom: "20px",
                     display: "block",
                     marginLeft: "auto",
@@ -156,7 +157,7 @@ function StatChallenge() {
             },
           }}
         >
-          {gameOver ? "Restart" : currentQuestion ? "Next Question" : "Start"}
+          {gameOver ? "Play again?" : currentQuestion ? "Next Question" : "Start"}
         </Button>
       </Container>
     </>

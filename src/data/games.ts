@@ -16,13 +16,13 @@ export const GAMES: Game[] = [
   {
     id: "coin-toss",
     name: "Coin Toss",
-    description: "description",
+    description: "Quick and simple",
     icon: coinIcon,
   },
   {
     id: "dice-roll",
     name: "Dice Roll",
-    description: "description",
+    description: "Simple",
     icon: diceIcon,
   },
   {
@@ -47,8 +47,8 @@ export const GAMES: Game[] = [
   },
   {
     id: "stat-challenge",
-    name: "Stat Challenge",
-    description: "description",
+    name: "Stats Challenge",
+    description: "Click the button to generate a random question. Whoever has the highest stats wins!",
     icon: statsIcon,
   },
 ];
