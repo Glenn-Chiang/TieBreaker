@@ -1,14 +1,19 @@
-import { useState, useRef, useEffect } from "react";
-import { Button, Box, Stack, Icon } from "@mui/material";
-import { GAMES } from "../data/games";
-import GameBanner from "../components/GameBanner";
 import { Add, Remove } from "@mui/icons-material";
+import { Box, Button, Icon, Stack } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import GameBanner from "../components/GameBanner";
+import ResultAlert from "../components/ResultAlert";
+import { GAMES } from "../data/games";
+
+type GameState = "pre-game" | "in-game" | "post-game";
 
 export default function SpinTheWheel() {
-  const gameData = GAMES.find(data => data.id === "spin-the-wheel")!
+  const gameData = GAMES.find((data) => data.id === "spin-the-wheel")!;
+  const [gameState, setGameState] = useState<GameState>("pre-game");
+  const [winnerId, setWinnerId] = useState<number | null>(null);
+  const [numPlayers, setNumPlayers] = useState<number>(2);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [numElements, setNumElements] = useState<number>(2);
   const [currentAngle, setCurrentAngle] = useState<number>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
 
@@ -20,11 +25,11 @@ export default function SpinTheWheel() {
     const radius = canvas.width / 2;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const anglePerSegment = (2 * Math.PI) / numElements;
+    const anglePerSegment = (2 * Math.PI) / numPlayers;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < numElements; i++) {
+    for (let i = 0; i < numPlayers; i++) {
       const startAngle = angle + i * anglePerSegment;
       const endAngle = startAngle + anglePerSegment;
 
@@ -32,15 +37,26 @@ export default function SpinTheWheel() {
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-      ctx.fillStyle = `hsl(${(360 / numElements) * i}, 70%, 70%)`; // Unique color for each segment
+      ctx.fillStyle = `hsl(${(360 / numPlayers) * i}, 70%, 70%)`; // Unique color for each segment
       ctx.fill();
       ctx.stroke();
+
+      // Label wheel segments with player id
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(startAngle + anglePerSegment / 2); // Rotate to the middle of the segment
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#000"; // Text color
+      ctx.font = "16px Arial";
+      ctx.fillText(`P${i + 1}`, radius / 1.5, 0); // Position text towards the outer edge
+      ctx.restore();
     }
   };
 
   const spinWheel = () => {
     if (spinning) return;
     setSpinning(true);
+    setGameState("in-game")
 
     const targetAngle =
       currentAngle + Math.random() * Math.PI * 4 + Math.PI * 8; // Random spin
@@ -60,25 +76,40 @@ export default function SpinTheWheel() {
         setCurrentAngle(finalAngle);
         setSpinning(false);
         drawWheel(finalAngle);
+
+        determineWinner(finalAngle);
       }
     };
 
     animate();
   };
 
-  useEffect(() => drawWheel(0), [numElements]);
+  useEffect(() => drawWheel(0), [numPlayers]);
+
+  const determineWinner = (angle: number) => {
+    setGameState("post-game")
+
+    const anglePerSegment = (2 * Math.PI) / numPlayers;
+    const normalizedAngle = angle < 0 ? angle + 2 * Math.PI : angle;
+    const landedIndex = Math.floor(normalizedAngle / anglePerSegment); // Segment where the wheel landed
+    
+    setWinnerId(landedIndex + 1);
+  };
 
   return (
     <>
       <GameBanner gameData={gameData} />
       <Box
-        padding={1}
+        padding={2}
         display={"flex"}
         flexDirection={"column"}
         justifyContent={"center"}
         alignItems={"center"}
+        gap={1}
       >
-        <Box position={'relative'}>
+        {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
+
+        <Box position={"relative"} sx={{ objectFit: "contain" }}>
           <canvas
             ref={canvasRef}
             width={400}
@@ -94,7 +125,7 @@ export default function SpinTheWheel() {
               borderTop: "20px solid black", // Bottom visible to form the triangle
               position: "absolute",
               top: 0,
-              left: 195
+              left: 195,
             }}
           />
         </Box>
@@ -105,16 +136,16 @@ export default function SpinTheWheel() {
 
         <Stack direction={"row"}>
           <Button
-            onClick={() => setNumElements(numElements + 1)}
-            disabled={numElements > 5}
+            onClick={() => setNumPlayers(numPlayers + 1)}
+            disabled={numPlayers > 5}
           >
             <Icon>
               <Add />
             </Icon>
           </Button>
           <Button
-            onClick={() => setNumElements(numElements - 1)}
-            disabled={numElements < 3}
+            onClick={() => setNumPlayers(numPlayers - 1)}
+            disabled={numPlayers < 3}
           >
             <Icon>
               <Remove />

@@ -1,8 +1,9 @@
-import { Alert, Box, Button, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useState } from "react";
 import GameBanner from "../components/GameBanner";
-import { GAMES } from "../data/games";
+import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
+import { GAMES } from "../data/games";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
@@ -60,7 +61,7 @@ export default function ReactionTest() {
           </Stack>
         ) : (
           <Stack spacing={1}>
-            <Alert color="success">Player {winnerId} wins!</Alert>
+            <ResultAlert winnerId={winnerId}/>
             <StartButton handleClick={startGame} />
           </Stack>
         )}

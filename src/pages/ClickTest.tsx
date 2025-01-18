@@ -1,8 +1,9 @@
+import { Box, Button, Stack } from "@mui/material";
 import { useState } from "react";
-import { Alert, Box, Button, Stack } from "@mui/material";
 import GameBanner from "../components/GameBanner";
-import { GAMES } from "../data/games";
+import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
+import { GAMES } from "../data/games";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
@@ -33,11 +34,11 @@ export default function ClickTest() {
       setGameState("post-game");
     }, TEST_DURATION * 1000);
   };
-  
-  // Determine winner
-  const winnerId = scores[0] > scores[1] ? 1 : scores[0] < scores[1] ? 2 : null
 
-  console.log("Scores outer", scores)
+  // Determine winner
+  const winnerId = scores[0] > scores[1] ? 1 : scores[0] < scores[1] ? 2 : null;
+
+  console.log("Scores outer", scores);
 
   return (
     <>
@@ -58,17 +59,7 @@ export default function ClickTest() {
           </Stack>
         ) : (
           <Stack spacing={1}>
-            {gameState === "post-game" &&
-              (winnerId ? (
-                <Alert icon={false} color="success">
-                  {" "}
-                  Player {winnerId} wins!
-                </Alert>
-              ) : (
-                <Alert icon={false} color="info">
-                  Tie!
-                </Alert>
-              ))}
+            {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
             <StartButton handleClick={startGame} />
           </Stack>
         )}
