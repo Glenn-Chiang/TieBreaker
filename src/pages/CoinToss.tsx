@@ -4,7 +4,6 @@ import GameBanner from "../components/GameBanner";
 import { GAMES } from "../data/games";
 import headVideo from "../assets/heads_flip.mp4";
 import tailVideo from "../assets/tails_flip.mp4";
-import { Rotate90DegreesCcw } from "@mui/icons-material";
 
 export default function CoinToss() {
   const gameData = GAMES.find((data) => data.id === "coin-toss")!;
