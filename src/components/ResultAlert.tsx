@@ -1,4 +1,4 @@
-import { Alert } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 
 interface ResultAlertProps {
   winnerId: number | null;
@@ -6,8 +6,18 @@ interface ResultAlertProps {
 
 export default function ResultAlert({ winnerId }: ResultAlertProps) {
   return (
-    <Alert sx={{width: '100%', textAlign: 'center'}} icon={false} color={"success"} >
-      Player {winnerId} wins!
+    <Alert
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+      icon={false}
+      color={"success"}
+    >
+      <Typography variant="h6">Player {winnerId} wins!</Typography>
     </Alert>
   );
 }

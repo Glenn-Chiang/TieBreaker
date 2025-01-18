@@ -16,9 +16,12 @@ export default function ReactionTest() {
 
   // When buttonActive is true, the buttons turn green and players can start clicking
   const [buttonActive, setButtonActive] = useState(false);
+  
+  const confetti = useConfetti()
 
   const startGame = () => {
     setGameState("in-game");
+    confetti.deactivate()
 
     // Randomly determine the time at which the buttons will activate
     const activationTime = Math.floor(Math.random() * 5) + 1;
@@ -27,8 +30,6 @@ export default function ReactionTest() {
       setButtonActive(true);
     }, activationTime * 1000);
   };
-
-  const confetti = useConfetti()
 
   const handleClick = (playerId: number) => {
     setGameState("post-game");

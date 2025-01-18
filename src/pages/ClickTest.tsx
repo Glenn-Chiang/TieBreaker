@@ -4,12 +4,12 @@ import GameBanner from "../components/GameBanner";
 import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
 import { GAMES } from "../data/games";
+import { useConfetti } from "../components/ConfettiProvider";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
 export default function ClickTest() {
   const gameData = GAMES.find((data) => data.id === "click-test")!;
-
   const [gameState, setGameState] = useState<GameState>("pre-game");
 
   // Players have to click as many times as they can within this time (in seconds)
@@ -26,24 +26,39 @@ export default function ClickTest() {
     });
   };
 
+  const confetti = useConfetti();
+
   const startGame = () => {
     setScores([0, 0]); // reset scores
     setGameState("in-game");
+    confetti.deactivate();
 
     setTimeout(() => {
-      setGameState("post-game");
+      endGame();
     }, TEST_DURATION * 1000);
+  };
+
+  const endGame = () => {
+    setGameState("post-game");
+    confetti.activate();
   };
 
   // Determine winner
   const winnerId = scores[0] > scores[1] ? 1 : scores[0] < scores[1] ? 2 : null;
 
-  console.log("Scores outer", scores);
-
   return (
     <>
       <GameBanner gameData={gameData} />
-      <Box sx={{ display: "flex", justifyContent: "center", padding: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 2,
+          gap: 1,
+        }}
+      >
         {gameState === "in-game" ? (
           <Stack spacing={1} width={"100%"}>
             <ClickTestButton
@@ -58,11 +73,9 @@ export default function ClickTest() {
             />
           </Stack>
         ) : (
-          <Stack spacing={1}>
-            {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
-            <StartButton handleClick={startGame} />
-          </Stack>
+          <StartButton handleClick={startGame} />
         )}
+        {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
       </Box>
     </>
   );

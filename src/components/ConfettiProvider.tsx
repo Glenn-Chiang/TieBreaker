@@ -5,6 +5,7 @@ import ReactConfetti from "react-confetti";
 
 interface ConfettiManager {
   activate: () => void;
+  deactivate: () => void;
 }
 
 const ConfettiContext = createContext<ConfettiManager | undefined>(undefined);
@@ -23,7 +24,10 @@ export function ConfettiProvider({ children }: { children: React.ReactNode }) {
     }, activeDuration * 1000);
   };
 
-  const confettiManager: ConfettiManager = { activate };
+  const confettiManager: ConfettiManager = {
+    activate,
+    deactivate: () => setIsActive(false),
+  };
 
   return (
     <ConfettiContext.Provider value={confettiManager}>
