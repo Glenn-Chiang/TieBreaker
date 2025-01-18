@@ -1,28 +1,42 @@
-import React, { useState } from "react";
-import "./Statgame.css"; // Importing a separate CSS file for styling
+import { useState } from "react";
+import { Button, Typography, Container, keyframes, useTheme } from "@mui/material";
+import GameBanner from "../components/GameBanner";
+import { GAMES } from "../data/games";
+
+// Generate question button flicker animation
+const flickerAnimation = keyframes`
+  0% {
+    box-shadow: 0 0 8px rgba(255, 87, 34, 0.6), 0 0 16px rgba(255, 152, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.8), 0 0 24px rgba(255, 87, 34, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 16px rgba(255, 87, 34, 0.9), 0 0 32px rgba(255, 152, 0, 1);
+  }
+`;
 
 function StatChallenge() {
-  // Define the questions array (only questions without answers)
+  const gameData = GAMES.find((data) => data.id === "stat-challenge")!;
+  const theme = useTheme(); // Access the MUI theme
   const questions = [
     "Highest body count?",
+    "Fastest 2.4km timing?",
     "Highest GPA?",
-    "Highest bench/deadlift?",
-    "Most number of SUs?",
+    "Highest max bench/deadlift?",
+    "Most number of SUs used?",
     "Tallest?",
-    // Add more questions here
+    "Most cooked in life/studies?",
+    "Stays nearest to campus?",
   ];
 
-  // State to hold the list of remaining questions and the current question
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
-  const [currentQuestion, setCurrentQuestion] = useState<string | null>(null); // Initially no question
-  const [feedback, setFeedback] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
+  const [gameOver, setGameOver] = useState(false); // Track if all questions have been asked
 
-  // Function to get a random question and remove it from the remaining questions list
   function getRandomQuestion() {
     if (remainingQuestions.length === 0) {
-      setFeedback("All questions have been asked! Restarting the game...");
-      // Reset the game by repopulating the remaining questions
-      setRemainingQuestions(questions);
+      setGameOver(true); // All questions have been asked
       return "";
     }
     const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
@@ -34,29 +48,91 @@ function StatChallenge() {
     return selectedQuestion;
   }
 
-  // Function to handle "Generate Question" button click
   function generateQuestion() {
-    const newQuestion = getRandomQuestion();
-    setFeedback(""); // Clear feedback
-    setCurrentQuestion(newQuestion);
+    if (gameOver) {
+      // Reset the game when it's over
+      setRemainingQuestions(questions);
+      setGameOver(false);
+      setCurrentQuestion(null);
+    } else {
+      const newQuestion = getRandomQuestion();
+      setCurrentQuestion(newQuestion);
+    }
   }
 
   return (
-    <div className="statgame-container">
-      <h1 className="game-title">StatChallenge</h1>
-      <p className="game-tagline">When in doubt, let the stats decide!</p>
-      <h4 className="warning">Warning! Friendships may be broken!</h4>
-      
-      {currentQuestion && <h2 className="current-question">{currentQuestion}</h2>} {/* Display the question */}
-      
-      <div className="button-container">
-        <button className="generate-button" onClick={generateQuestion}>
-          Generate Question
-        </button>
-      </div>
+    <>
+      <GameBanner gameData={gameData} />
+      <Container
+        maxWidth="sm"
+        sx={{
+          padding: "40px",
+          borderRadius: "12px",
+          textAlign: "center",
+          boxShadow: theme.shadows[4], // Use theme shadow
+        }}
+      >
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: "20px",
+            marginBottom: "10px",
+          }}
+        >
+          Who decides? Let your stats do the work!
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: theme.palette.error.main,
+            fontWeight: "bold",
+            fontSize: "18px",
+            marginBottom: "20px",
+          }}
+        >
+          ⚠️ Warning: May ruin friendships!
+        </Typography>
 
-      {feedback && <p className="feedback-message">{feedback}</p>}
-    </div>
+        {currentQuestion && (
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{
+              fontWeight: "bold",
+              marginBottom: "20px",
+            }}
+          >
+            {currentQuestion}
+          </Typography>
+        )}
+
+        <Button
+          variant="contained"
+          size="large"
+          onClick={generateQuestion}
+          sx={{
+            padding: "12px 40px",
+            fontSize: "18px",
+            textTransform: "none",
+            borderRadius: "12px",
+            background: theme.palette.error.main,
+            color: "white",
+            transition: "all 0.3s ease",
+            overflow: "hidden",
+            ":hover": {
+              background: theme.palette.error.dark,
+              animation: `${flickerAnimation} 0.15s infinite alternate`,
+              transform: "scale(1.05)",
+            },
+            ":active": {
+              transform: "scale(0.95)",
+            },
+          }}
+        >
+          {gameOver ? "Restart" : currentQuestion ? "Next Question" : "Generate Question"}
+        </Button>
+      </Container>
+    </>
   );
 }
 
