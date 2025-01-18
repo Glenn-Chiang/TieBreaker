@@ -9,7 +9,8 @@ export interface Game {
   id: string;
   name: string;
   description: string;
-  icon?: string; // Path to local image asset
+  icon: string; // Path to local image asset
+  maxPlayers: number | null; // The maximum number of players that the game is intended to be played by
 }
 
 export const GAMES: Game[] = [
@@ -18,18 +19,21 @@ export const GAMES: Game[] = [
     name: "Coin Toss",
     description: "description",
     icon: coinIcon,
+    maxPlayers: 2,
   },
   {
     id: "dice-roll",
     name: "Dice Roll",
     description: "description",
     icon: diceIcon,
+    maxPlayers: 2,
   },
   {
     id: "spin-the-wheel",
     name: "Spin the Wheel",
     description: "description",
     icon: wheelIcon,
+    maxPlayers: 6,
   },
   {
     id: "reaction-test",
@@ -37,6 +41,7 @@ export const GAMES: Game[] = [
     icon: boltIcon,
     description:
       "When the blue buttons turns green, click as fast as you can. If you click early, you lose immediately.",
+    maxPlayers: 2,
   },
   {
     id: "click-test",
@@ -44,11 +49,13 @@ export const GAMES: Game[] = [
     icon: cursorIcon,
     description:
       "Click the button as many times as you can before the timer runs out",
+    maxPlayers: 2,
   },
   {
     id: "stat-challenge",
     name: "Stat Challenge",
     description: "description",
     icon: statsIcon,
+    maxPlayers: null,
   },
 ];
