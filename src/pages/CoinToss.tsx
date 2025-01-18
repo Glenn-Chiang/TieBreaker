@@ -21,7 +21,6 @@ export default function CoinToss() {
       videoRef.current.pause(); // Pause the current video
       videoRef.current.src = video; // Update the video source directly
       videoRef.current.load();
-
       videoRef.current.play();
     }
   };
@@ -31,7 +30,12 @@ export default function CoinToss() {
       <GameBanner gameData={gameData} />
       <Box>
         <Button onClick={onFlip}>Flip</Button>
-        <video ref={videoRef}>
+        <video
+          ref={videoRef}
+          style={{
+            width: "100vw",
+          }}
+        >
           <source src={video} />
         </video>
       </Box>
