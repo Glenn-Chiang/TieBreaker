@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Stack, Icon } from "@mui/material";
+import { GAMES } from "../data/games";
+import GameBanner from "../components/GameBanner";
+import { Add, Remove } from "@mui/icons-material";
 
 export default function SpinTheWheel() {
-  
+  const gameData = GAMES.find(data => data.id === "spin-the-wheel")!
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [numElements, setNumElements] = useState<number>(2);
@@ -67,51 +70,57 @@ export default function SpinTheWheel() {
 
   return (
     <>
-      <Box>
-        <Box sx={{ position: "absolute" }}>
+      <GameBanner gameData={gameData} />
+      <Box
+        padding={1}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
+        <Box position={'relative'}>
           <canvas
             ref={canvasRef}
             width={400}
             height={400}
             style={{ border: "2px solid #000", borderRadius: "50%" }}
           />
-        </Box>
-        <Box
-          sx={{
-            width: 0,
-            height: 0,
-            borderLeft: "10px solid transparent", // Left side transparent
-            borderRight: "10px solid transparent", // Right side transparent
-            borderTop: "20px solid black", // Bottom visible to form the triangle
-            position: "absolute",
-            left: "200px",
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            top: "200px", // Centered overlap
-            left: "200px",
-            zIndex: 1,
-          }}
-        >
-          <Button variant="contained" onClick={spinWheel}>
-            Spin
-          </Button>
+          <Box
+            sx={{
+              width: 0,
+              height: 0,
+              borderLeft: "10px solid transparent", // Left side transparent
+              borderRight: "10px solid transparent", // Right side transparent
+              borderTop: "20px solid black", // Bottom visible to form the triangle
+              position: "absolute",
+              top: 0,
+              left: 195
+            }}
+          />
         </Box>
 
-        <Button
-          onClick={() => setNumElements(numElements + 1)}
-          disabled={numElements > 5}
-        >
-          +
+        <Button variant="contained" onClick={spinWheel}>
+          Spin
         </Button>
-        <Button
-          onClick={() => setNumElements(numElements - 1)}
-          disabled={numElements < 3}
-        >
-          -
-        </Button>
+
+        <Stack direction={"row"}>
+          <Button
+            onClick={() => setNumElements(numElements + 1)}
+            disabled={numElements > 5}
+          >
+            <Icon>
+              <Add />
+            </Icon>
+          </Button>
+          <Button
+            onClick={() => setNumElements(numElements - 1)}
+            disabled={numElements < 3}
+          >
+            <Icon>
+              <Remove />
+            </Icon>
+          </Button>
+        </Stack>
       </Box>
     </>
   );
