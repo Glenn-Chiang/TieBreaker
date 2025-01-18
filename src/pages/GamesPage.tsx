@@ -1,34 +1,59 @@
 import { Gamepad } from "@mui/icons-material";
-import { Card, CardHeader, Icon, Stack, Typography } from "@mui/material";
-import { Game } from "../data/models";
-
-const games: Game[] = [
-  { id: 1, name: "Game 1", description: "description 1" },
-  { id: 2, name: "Game 2", description: "description 2" },
-];
+import {
+  Box,
+  Card,
+  CardHeader,
+  CardMedia,
+  Grid2 as Grid,
+  Icon,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { Game, GAMES } from "../data/games";
+import { Link as RouterLink } from "react-router";
 
 export default function GamesPage() {
   return (
     <>
-      <Stack direction={"row"} gap={1} alignItems={"center"}>
-        <Icon>
-          <Gamepad />
-        </Icon>
-        <Typography variant="h6">Select Game</Typography>
-      </Stack>
-      <Stack gap={2}>
-        {games.map((game) => (
-          <GameItem key={game.name} game={game} />
+      <Box
+        padding={2}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        color={"white"}
+        sx={{ backgroundColor: "#2196f3" }}
+      >
+        <Stack direction={"row"} gap={1} alignItems={"center"}>
+          <Icon>
+            <Gamepad />
+          </Icon>
+          <Typography variant="h4">Select Game</Typography>
+        </Stack>
+      </Box>
+      <Grid padding={1} container spacing={1}>
+        {GAMES.map((game) => (
+          <Grid size={{ xs: 12, sm: 6 }} key={game.name}>
+            <GameCard gameData={game} />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
     </>
   );
 }
 
-function GameItem({ game }: { game: Game }) {
+function GameCard({ gameData }: { gameData: Game }) {
   return (
-    <Card>
-      <CardHeader title={game.name} subheader={game.description} />
-    </Card>
+    <Link to={`/games/${gameData.id}`} component={RouterLink} underline="none">
+      <Card sx={{ height: "100%" }}>
+        <CardHeader title={gameData.name} />
+        <CardMedia
+          component={"img"}
+          image={gameData.icon}
+          height={200}
+          sx={{ objectFit: "contain" }}
+        />
+      </Card>
+    </Link>
   );
 }

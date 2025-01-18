@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Statgame.css"; // Importing a separate CSS file for styling
 
-function Statgame() {
+function StatChallenge() {
   // Define the questions array (only questions without answers)
   const questions = [
     "Highest body count?",
@@ -43,7 +43,7 @@ function Statgame() {
 
   return (
     <div className="statgame-container">
-      <h1 className="game-title">StatBattle</h1>
+      <h1 className="game-title">StatChallenge</h1>
       <p className="game-tagline">When in doubt, let the stats decide!</p>
       <h4 className="warning">Warning! Friendships may be broken!</h4>
       
@@ -60,4 +60,4 @@ function Statgame() {
   );
 }
 
-export default Statgame;
+export default StatChallenge;

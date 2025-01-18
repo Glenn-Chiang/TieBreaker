@@ -1,18 +1,31 @@
-import { Route } from "react-router";
-import { BrowserRouter, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import BaseLayout from "./pages/BaseLayout";
-import HomePage from "./pages/HomePage";
-import PlayersPage from "./pages/PlayersPage";
+import CoinToss from "./pages/CoinToss";
+import DiceRoll from "./pages/DiceRoll";
 import GamesPage from "./pages/GamesPage";
+import PlayersPage from "./pages/PlayersPage";
+import ReactionTest from "./pages/ReactionTest";
+import SpinTheWheel from "./pages/SpinTheWheel";
+import StatChallenge from "./pages/StatChallenge";
+import ClickTest from "./pages/ClickTest";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<BaseLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="players" element={<PlayersPage/>}/>
-          <Route path="games" element={<GamesPage/>}/>
+          <Route index element={<GamesPage />} />
+          <Route path="players" element={<PlayersPage />} />
+
+          <Route path="games">
+            <Route index element={<GamesPage />}/>
+            <Route path="coin-toss" element={<CoinToss/>}/>
+            <Route path="dice-roll" element={<DiceRoll/>}/>
+            <Route path="spin-the-wheel" element={<SpinTheWheel/>}/>
+            <Route path="reaction-test" element={<ReactionTest/>}/>
+            <Route path="click-test" element={<ClickTest/>}/>
+            <Route path="stat-challenge" element={<StatChallenge/>}/>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
