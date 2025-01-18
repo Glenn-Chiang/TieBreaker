@@ -1,0 +1,69 @@
+/* Statgame.css */
+.statgame-container {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+    min-height: 70vh;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .game-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .game-tagline {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .warning {
+    color: #ff5722;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .current-question {
+    font-size: 26px;
+    color: #4caf50;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+  }
+  
+  .generate-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .generate-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .generate-button:active {
+    transform: scale(0.98);
+  }
+  
+  .feedback-message {
+    font-size: 18px;
+    color: #f44336;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
