@@ -1,12 +1,9 @@
 import { Box, Button } from "@mui/material";
 import { useRef, useState } from "react";
-import GameBanner from "../components/GameBanner";
-import { GAMES } from "../data/games";
 import headVideo from "../assets/heads_flip.mp4";
 import tailVideo from "../assets/tails_flip.mp4";
 
 export default function CoinToss() {
-  const gameData = GAMES.find((data) => data.id === "coin-toss")!;
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [video, setVideo] = useState(headVideo);
 
@@ -26,20 +23,17 @@ export default function CoinToss() {
   };
 
   return (
-    <>
-      <GameBanner gameData={gameData} />
-      <Box>
-        <Button onClick={onFlip}>Flip</Button>
-        <video
-          ref={videoRef}
-          style={{
-            width: "100vw",
-            transform: "rotate(-90deg)",
-          }}
-        >
-          <source src={video} />
-        </video>
-      </Box>
-    </>
+    <Box>
+      <Button onClick={onFlip}>Flip</Button>
+      <video
+        ref={videoRef}
+        style={{
+          width: "100vw",
+          transform: "rotate(-90deg)",
+        }}
+      >
+        <source src={video} />
+      </video>
+    </Box>
   );
 }

@@ -1,15 +1,12 @@
 import { Box, Button, LinearProgress, Stack } from "@mui/material";
 import { useRef, useState } from "react";
-import GameBanner from "../components/GameBanner";
+import { useConfetti } from "../components/ConfettiProvider";
 import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
-import { GAMES } from "../data/games";
-import { useConfetti } from "../components/ConfettiProvider";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
 export default function ClickTest() {
-  const gameData = GAMES.find((data) => data.id === "click-test")!;
   const [gameState, setGameState] = useState<GameState>("pre-game");
 
   // Players have to click as many times as they can within this time (in seconds)
@@ -68,38 +65,26 @@ export default function ClickTest() {
   const winnerId = scores[0] > scores[1] ? 1 : scores[0] < scores[1] ? 2 : null;
 
   return (
-    <>
-      <GameBanner gameData={gameData} />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 2,
-          gap: 1,
-        }}
-      >
-        {gameState === "in-game" ? (
-          <Stack spacing={1} width={"100%"}>
-            <TimerBar timer={timer} maxTimer={TEST_DURATION}/>
-            <ClickTestButton
-              playerId={1}
-              handleClick={() => addScore(1)}
-              score={scores[0]}
-            />
-            <ClickTestButton
-              playerId={2}
-              handleClick={() => addScore(2)}
-              score={scores[1]}
-            />
-          </Stack>
-        ) : (
-          <StartButton handleClick={startGame} />
-        )}
-        {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
-      </Box>
-    </>
+    <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
+      {gameState === "in-game" ? (
+        <Stack spacing={1} width={"100%"}>
+          <TimerBar timer={timer} maxTimer={TEST_DURATION} />
+          <ClickTestButton
+            playerId={1}
+            handleClick={() => addScore(1)}
+            score={scores[0]}
+          />
+          <ClickTestButton
+            playerId={2}
+            handleClick={() => addScore(2)}
+            score={scores[1]}
+          />
+        </Stack>
+      ) : (
+        <StartButton handleClick={startGame} />
+      )}
+      {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
+    </Box>
   );
 }
 
@@ -109,7 +94,7 @@ interface TimerBarProps {
 }
 
 function TimerBar({ timer, maxTimer }: TimerBarProps) {
-  const normalizedValue = Math.floor(timer / maxTimer * 100);
+  const normalizedValue = Math.floor((timer / maxTimer) * 100);
   return <LinearProgress variant="determinate" value={normalizedValue} />;
 }
 
