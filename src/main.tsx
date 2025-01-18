@@ -7,5 +7,6 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GlobalStyles styles={{ body: { margin: 0 } }} />
     <AppRouter />
+
   </StrictMode>
 );
