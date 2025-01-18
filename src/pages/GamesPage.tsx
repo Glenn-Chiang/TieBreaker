@@ -1,17 +1,14 @@
-import { Gamepad, Shuffle } from "@mui/icons-material";
+import { Shuffle } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Grid2 as Grid,
-  Icon,
-  Stack,
-  Typography,
+  Grid2 as Grid
 } from "@mui/material";
-import { Game, GAMES } from "../data/games";
-import { GameCard } from "../components/GameCard";
 import { useState } from "react";
-import { SelectGameDialog } from "../components/SelectGameDialog";
 import { useNavigate } from "react-router";
+import { GameCard } from "../components/GameCard";
+import { SelectGameDialog } from "../components/SelectGameDialog";
+import { Game, GAMES } from "../data/games";
 
 export default function GamesPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -25,12 +22,12 @@ export default function GamesPage() {
     setDialogOpen(true);
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // What happens when the user confirms the selected game
+  // When user confirms the selected game, redirect to the game's page
   const handleConfirmSelected = () => {
-    navigate(`/games/${selectedGame?.id}`)
-  }
+    navigate(`/games/${selectedGame?.id}`);
+  };
 
   const handleClose = () => {
     setDialogOpen(false);
@@ -39,22 +36,6 @@ export default function GamesPage() {
 
   return (
     <>
-      <Box
-        padding={2}
-        display={"flex"}
-        justifyContent={"center"}
-        alignItems={"center"}
-        color={"white"}
-        sx={{ backgroundColor: "#2196f3" }}
-      >
-        <Stack direction={"row"} gap={1} alignItems={"center"}>
-          <Icon>
-            <Gamepad />
-          </Icon>
-          <Typography variant="h4">Select Game</Typography>
-        </Stack>
-      </Box>
-
       <Box padding={1}>
         <RandomGameButton handleClick={handleClickRandom} />
       </Box>
@@ -85,7 +66,12 @@ interface RandomGameButtonProps {
 
 function RandomGameButton({ handleClick }: RandomGameButtonProps) {
   return (
-    <Button variant="contained" fullWidth onClick={handleClick} startIcon={<Shuffle/>}>
+    <Button
+      variant="contained"
+      fullWidth
+      onClick={handleClick}
+      startIcon={<Shuffle />}
+    >
       Select Random
     </Button>
   );

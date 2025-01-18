@@ -1,5 +1,5 @@
+import { Box, Button } from "@mui/material";
 import { useState } from "react";
-import { Button, Box } from "@mui/material";
 import balloon1 from "../assets/balloon_1.jpg";
 import balloon2 from "../assets/balloon_2.jpg";
 import balloon3 from "../assets/balloon_3.jpg";
@@ -93,7 +93,11 @@ export default function BalloonPop() {
         )}
       </Box>
 
-      {!animPlaying && <Button onClick={handleClick}>{getButtonText()}</Button>}
+      {!animPlaying && (
+        <Button fullWidth variant="contained" onClick={handleClick}>
+          {getButtonText()}
+        </Button>
+      )}
     </>
   );
 }
