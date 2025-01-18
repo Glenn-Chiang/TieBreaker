@@ -122,8 +122,12 @@ export default function TypingTest() {
     });
   };
 
-  // Determine winner
-  const winnerId = 1;
+  // Determine id of winner
+  const determineWinner = (): number => {
+    return scores.indexOf(Math.max(...scores)) + 1;
+  }
+
+  const winnerId = determineWinner();
 
   const confetti = useConfetti()
 
