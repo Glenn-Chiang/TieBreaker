@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Typography, Container, keyframes, useTheme } from "@mui/material";
+import GameBanner from "../components/GameBanner";
 import { GAMES } from "../data/games";
 
 // Generate question button flicker animation
@@ -69,6 +70,7 @@ function StatChallenge() {
 
   return (
     <>
+      <GameBanner gameData={gameData} />
       <Container
         maxWidth = {false}
         sx={{
