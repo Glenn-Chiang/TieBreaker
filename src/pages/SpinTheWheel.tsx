@@ -56,7 +56,7 @@ export default function SpinTheWheel() {
   const spinWheel = () => {
     if (spinning) return;
     setSpinning(true);
-    setGameState("in-game")
+    setGameState("in-game");
 
     const targetAngle =
       currentAngle + Math.random() * Math.PI * 4 + Math.PI * 8; // Random spin
@@ -87,13 +87,14 @@ export default function SpinTheWheel() {
   useEffect(() => drawWheel(0), [numPlayers]);
 
   const determineWinner = (angle: number) => {
-    setGameState("post-game")
+    setGameState("post-game");
 
     const anglePerSegment = (2 * Math.PI) / numPlayers;
-    const normalizedAngle = angle < 0 ? angle + 2 * Math.PI : angle;
-    const landedIndex = Math.floor(normalizedAngle / anglePerSegment); // Segment where the wheel landed
-    
-    setWinnerId(landedIndex + 1);
+    const correctedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
+    const landedIndex =
+      numPlayers - Math.floor(correctedAngle / anglePerSegment); // Segment where the wheel landed
+
+    setWinnerId(landedIndex);
   };
 
   return (
