@@ -56,9 +56,7 @@ export default function ClickTest() {
     }
 
     // Activate confetti effect if there is a winner
-    if (winnerId) {
-      confetti.activate();
-    }
+    confetti.activate();
   };
 
   // Determine winner
