@@ -23,12 +23,12 @@ export default function CoinToss() {
   };
 
   return (
-    <Box>
+    <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
       <Button onClick={onFlip}>Flip</Button>
       <video
         ref={videoRef}
         style={{
-          width: "100vw",
+          width: "100%",
           transform: "rotate(-90deg)",
         }}
       >
