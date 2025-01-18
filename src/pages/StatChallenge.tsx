@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Button, Typography, Container, keyframes, useTheme } from "@mui/material";
-import GameBanner from "../components/GameBanner";
-import { GAMES } from "../data/games";
 
 // Generate question button flicker animation
 const flickerAnimation = keyframes`
@@ -17,7 +15,6 @@ const flickerAnimation = keyframes`
 `;
 
 function StatChallenge() {
-  const gameData = GAMES.find((data) => data.id === "stat-challenge")!;
   const theme = useTheme(); // Access the MUI theme
   const questions = [
     "Fastest 2.4km timing?",
@@ -70,7 +67,6 @@ function StatChallenge() {
 
   return (
     <>
-      <GameBanner gameData={gameData} />
       <Container
         maxWidth = {false}
         sx={{
