@@ -12,7 +12,7 @@ export default function GameBanner({ gameData }: { gameData: Game }) {
       : `2 - ${gameData.maxPlayers} players`;
 
   return (
-    <Card sx={{ textAlign: "center" }}>
+    <Card sx={{ textAlign: "center", width: '100%' }}>
       <CardContent>
         <Stack gap={2}>
           <Typography variant="h4">{gameData.name}</Typography>
