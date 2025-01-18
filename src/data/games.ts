@@ -24,14 +24,14 @@ export const GAMES: Game[] = [
   {
     id: "dice-roll",
     name: "Dice Roll",
-    description: "Simple",
+    description: "Highest roll wins",
     icon: diceIcon,
     maxPlayers: 2,
   },
   {
     id: "spin-the-wheel",
     name: "Spin the Wheel",
-    description: "description",
+    description: "Use the + and - buttons to adjust the number of players",
     icon: wheelIcon,
     maxPlayers: 6,
   },
