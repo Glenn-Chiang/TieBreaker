@@ -8,6 +8,7 @@ import ReactionTest from "./pages/ReactionTest";
 import SpinTheWheel from "./pages/SpinTheWheel";
 import StatChallenge from "./pages/StatChallenge";
 import ClickTest from "./pages/ClickTest";
+import GamePageLayout from "./pages/GamePageLayout";
 
 export default function AppRouter() {
   return (
@@ -18,13 +19,16 @@ export default function AppRouter() {
           <Route path="players" element={<PlayersPage />} />
 
           <Route path="games">
-            <Route index element={<GamesPage />}/>
-            <Route path="coin-toss" element={<CoinToss/>}/>
-            <Route path="dice-roll" element={<DiceRoll/>}/>
-            <Route path="spin-the-wheel" element={<SpinTheWheel/>}/>
-            <Route path="reaction-test" element={<ReactionTest/>}/>
-            <Route path="click-test" element={<ClickTest/>}/>
-            <Route path="stat-challenge" element={<StatChallenge/>}/>
+            <Route index element={<GamesPage />} />
+
+            <Route element={<GamePageLayout />}>
+              <Route path="coin-toss" element={<CoinToss />} />
+              <Route path="dice-roll" element={<DiceRoll />} />
+              <Route path="spin-the-wheel" element={<SpinTheWheel />} />
+              <Route path="reaction-test" element={<ReactionTest />} />
+              <Route path="click-test" element={<ClickTest />} />
+              <Route path="stat-challenge" element={<StatChallenge />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

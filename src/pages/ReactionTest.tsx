@@ -4,6 +4,7 @@ import GameBanner from "../components/GameBanner";
 import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
 import { GAMES } from "../data/games";
+import { useConfetti } from "../components/ConfettiProvider";
 
 type GameState = "pre-game" | "in-game" | "post-game";
 
@@ -16,7 +17,6 @@ export default function ReactionTest() {
   // When buttonActive is true, the buttons turn green and players can start clicking
   const [buttonActive, setButtonActive] = useState(false);
 
-
   const startGame = () => {
     setGameState("in-game");
 
@@ -24,13 +24,15 @@ export default function ReactionTest() {
     const activationTime = Math.floor(Math.random() * 5) + 1;
 
     setTimeout(() => {
-      setButtonActive(true)
-    }, activationTime * 1000)
+      setButtonActive(true);
+    }, activationTime * 1000);
   };
+
+  const confetti = useConfetti()
 
   const handleClick = (playerId: number) => {
     setGameState("post-game");
-    setButtonActive(false)
+    setButtonActive(false);
 
     if (buttonActive) {
       setWinnerId(playerId);
@@ -38,15 +40,24 @@ export default function ReactionTest() {
       // If player clicks before buttons are active, they lose and the other player wins
       setWinnerId(playerId === 1 ? 2 : 1);
     }
+
+    confetti.activate()
   };
 
   return (
     <>
       <GameBanner gameData={gameData} />
-      <Box sx={{ display: "flex", justifyContent: "center", padding: 2 }}>
-        {gameState === "pre-game" ? (
-          <StartButton handleClick={startGame} />
-        ) : gameState === "in-game" ? (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 2,
+          gap: 1
+        }}
+      >
+        {gameState === "in-game" ? (
           <Stack spacing={1} width={"100%"}>
             <ReactionButton
               playerId={1}
@@ -60,11 +71,9 @@ export default function ReactionTest() {
             />
           </Stack>
         ) : (
-          <Stack spacing={1}>
-            <ResultAlert winnerId={winnerId}/>
-            <StartButton handleClick={startGame} />
-          </Stack>
+          <StartButton handleClick={startGame} />
         )}
+        {gameState === "post-game" && <ResultAlert winnerId={winnerId} />}
       </Box>
     </>
   );
