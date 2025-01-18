@@ -24,7 +24,7 @@ export default function CoinToss() {
 
   return (
     <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
-      <Button onClick={onFlip}>Flip</Button>
+      <Button variant="contained" onClick={onFlip}>Flip</Button>
       <video
         ref={videoRef}
         style={{
