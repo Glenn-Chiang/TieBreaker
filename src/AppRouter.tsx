@@ -9,6 +9,7 @@ import ReactionTest from "./pages/ReactionTest";
 import SpinTheWheel from "./pages/SpinTheWheel";
 import StatChallenge from "./pages/StatChallenge";
 import BalloonPop from "./pages/BalloonPop";
+import Pen14 from "./pages/Pen14";
 
 export default function AppRouter() {
   return (
@@ -28,6 +29,7 @@ export default function AppRouter() {
               <Route path="click-test" element={<ClickTest />} />
               <Route path="stat-challenge" element={<StatChallenge />} />
               <Route path="balloon-pop" element={<BalloonPop />} />
+              <Route path="pen14" element={<Pen14 />} />
             </Route>
           </Route>
         </Route>

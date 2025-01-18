@@ -57,5 +57,12 @@ export const GAMES: Game[] = [
     description: "Take turns to pump the balloon until it pops",
     icon: "/src/assets/balloon_icon.png",
     maxPlayers: null
+  },
+  {
+    id: "pen14",
+    name: "Pen14",
+    description: "In a public space, choose a word, take turns to say the word with increasing volume, first one who chickens out loses",
+    icon: "/src/assets/balloon_icon.jpg",
+    maxPlayers: null
   }
 ];
