@@ -1,14 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import BaseLayout from "./pages/BaseLayout";
+import ClickTest from "./pages/ClickTest";
 import CoinToss from "./pages/CoinToss";
 import DiceRoll from "./pages/DiceRoll";
+import GamePageLayout from "./pages/GamePageLayout";
 import GamesPage from "./pages/GamesPage";
-import PlayersPage from "./pages/PlayersPage";
 import ReactionTest from "./pages/ReactionTest";
 import SpinTheWheel from "./pages/SpinTheWheel";
 import StatChallenge from "./pages/StatChallenge";
-import ClickTest from "./pages/ClickTest";
-import GamePageLayout from "./pages/GamePageLayout";
 
 export default function AppRouter() {
   return (
@@ -16,7 +15,6 @@ export default function AppRouter() {
       <Routes>
         <Route element={<BaseLayout />}>
           <Route index element={<GamesPage />} />
-          <Route path="players" element={<PlayersPage />} />
 
           <Route path="games">
             <Route index element={<GamesPage />} />

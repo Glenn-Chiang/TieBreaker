@@ -1,10 +1,3 @@
-import boltIcon from "../assets/bolt_icon.webp";
-import cursorIcon from "../assets/cursor_icon.webp";
-import coinIcon from "../assets/coin_icon.png";
-import diceIcon from "../assets/dice_icon.png";
-import wheelIcon from "../assets/wheel_icon.png";
-import statsIcon from "../assets/stats_icon.png";
-
 export interface Game {
   id: string;
   name: string;
@@ -18,27 +11,27 @@ export const GAMES: Game[] = [
     id: "coin-toss",
     name: "Coin Toss",
     description: "Quick and simple",
-    icon: coinIcon,
+    icon: "/src/assets/coin_icon.png",
     maxPlayers: 2,
   },
   {
     id: "dice-roll",
     name: "Dice Roll",
     description: "Highest roll wins",
-    icon: diceIcon,
+    icon: "/src/assets/dice_icon.png",
     maxPlayers: 2,
   },
   {
     id: "spin-the-wheel",
     name: "Spin the Wheel",
     description: "Use the + and - buttons to adjust the number of players",
-    icon: wheelIcon,
+    icon: "/src/assets/wheel_icon.png",
     maxPlayers: 6,
   },
   {
     id: "reaction-test",
     name: "Reaction Test",
-    icon: boltIcon,
+    icon: "/src/assets/bolt_icon.webp",
     description:
       "When the blue buttons turns green, click as fast as you can. If you click early, you lose immediately.",
     maxPlayers: 2,
@@ -46,7 +39,7 @@ export const GAMES: Game[] = [
   {
     id: "click-test",
     name: "Clicking Test",
-    icon: cursorIcon,
+    icon: "/src/assets/cursor_icon.webp",
     description:
       "Click the button as many times as you can before the timer runs out",
     maxPlayers: 2,
@@ -54,8 +47,8 @@ export const GAMES: Game[] = [
   {
     id: "stat-challenge",
     name: "Stats Challenge",
-    description: "Click the button to generate a random statistical question. Whoever has the highest stats wins!",
-    icon: statsIcon,
+    description: "Click the button to generate a random question. Whoever has the highest stats wins!",
+    icon: "/src/assets/stats_icon.png",
     maxPlayers: null,
   },
 ];
