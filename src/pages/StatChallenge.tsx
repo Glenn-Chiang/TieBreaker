@@ -20,15 +20,21 @@ function StatChallenge() {
   const gameData = GAMES.find((data) => data.id === "stat-challenge")!;
   const theme = useTheme(); // Access the MUI theme
   const questions = [
-    "Highest body count?",
     "Fastest 2.4km timing?",
-    "Highest GPA?",
-    "Highest max bench/deadlift?",
+    "Heaviest squat/bench/deadlift?",
     "Most number of SUs used?",
-    "Tallest?",
-    "Most cooked in life/studies?",
+    "Most cooked in uni?",
     "Stays nearest to campus?",
   ];
+
+  // Map each question to a corresponding image
+  const questionImages: { [key: string]: string } = {
+    "Fastest 2.4km timing?": "/src/assets/run.jpeg",
+    "Heaviest squat/bench/deadlift?": "/src/assets/sbd.jpg",
+    "Most number of SUs used?": "/src/assets/su.jpeg",
+    "Most cooked in uni?": "/src/assets/dj.jpeg",
+    "Stays nearest to campus?": "/src/assets/nus.jpg", // Example image for "Stays nearest to campus"
+  };
 
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
@@ -50,10 +56,11 @@ function StatChallenge() {
 
   function generateQuestion() {
     if (gameOver) {
-      // Reset the game when it's over
+      // Reset the game when it's over, but generate a new question immediately
       setRemainingQuestions(questions);
       setGameOver(false);
-      setCurrentQuestion(null);
+      const newQuestion = getRandomQuestion();
+      setCurrentQuestion(newQuestion);
     } else {
       const newQuestion = getRandomQuestion();
       setCurrentQuestion(newQuestion);
@@ -94,17 +101,38 @@ function StatChallenge() {
         </Typography>
 
         {currentQuestion && (
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{
-              fontWeight: "bold",
-              marginBottom: "20px",
-            }}
-          >
-            {currentQuestion}
-          </Typography>
+          <>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{
+                fontWeight: "bold",
+                marginBottom: "20px",
+              }}
+            >
+              {currentQuestion}
+            </Typography>
+
+            {/* Display image below the question */}
+            {questionImages[currentQuestion] && (
+              <div style={{ marginBottom: "20px" }}>
+                <img
+                  src={questionImages[currentQuestion]}
+                  alt={currentQuestion}
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    marginBottom: "20px",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                />
+              </div>
+            )}
+          </>
         )}
+
         <Button
           variant="contained"
           size="large"
@@ -128,7 +156,7 @@ function StatChallenge() {
             },
           }}
         >
-          {gameOver ? "Restart" : currentQuestion ? "Next Question" : "Generate Question"}
+          {gameOver ? "Restart" : currentQuestion ? "Next Question" : "Start"}
         </Button>
       </Container>
     </>
