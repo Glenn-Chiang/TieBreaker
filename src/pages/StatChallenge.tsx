@@ -105,7 +105,6 @@ function StatChallenge() {
             {currentQuestion}
           </Typography>
         )}
-
         <Button
           variant="contained"
           size="large"
