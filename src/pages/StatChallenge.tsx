@@ -38,6 +38,7 @@ function StatChallenge() {
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
   const [gameOver, setGameOver] = useState(false); // Track if all questions have been asked
+  const [gameStarted, setGameStarted] = useState(false); // Track if the game has started
 
   function getRandomQuestion() {
     if (remainingQuestions.length === 0) {
@@ -54,6 +55,10 @@ function StatChallenge() {
   }
 
   function generateQuestion() {
+    if (!gameStarted) {
+      setGameStarted(true); // Start the game
+    }
+
     if (gameOver) {
       // Reset the game state immediately
       setRemainingQuestions(questions);
@@ -68,7 +73,7 @@ function StatChallenge() {
   return (
     <>
       <Container
-        maxWidth = {false}
+        maxWidth={false}
         sx={{
           padding: "40px",
           borderRadius: "12px",
@@ -76,26 +81,30 @@ function StatChallenge() {
           boxShadow: theme.shadows[4], // Use theme shadow
         }}
       >
-        <Typography
-          variant="body1"
-          sx={{
-            fontSize: "20px",
-            marginBottom: "10px",
-          }}
-        >
-          Let the stats speak for themselves!
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{
-            color: theme.palette.error.main,
-            fontWeight: "bold",
-            fontSize: "18px",
-            marginBottom: "20px",
-          }}
-        >
-          ⚠️ Warning: May ruin friendships!
-        </Typography>
+        {!gameStarted && (
+          <>
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: "20px",
+                marginBottom: "10px",
+              }}
+            >
+              Let the stats speak for themselves!
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: theme.palette.error.main,
+                fontWeight: "bold",
+                fontSize: "18px",
+                marginBottom: "20px",
+              }}
+            >
+              ⚠️ Warning: May ruin friendships!
+            </Typography>
+          </>
+        )}
 
         {currentQuestion && (
           <>
@@ -118,7 +127,7 @@ function StatChallenge() {
                   alt={currentQuestion}
                   style={{
                     maxWidth: "50%",
-                    height: "50hv",
+                    height: "auto", // Maintain aspect ratio
                     marginBottom: "20px",
                     display: "block",
                     marginLeft: "auto",
