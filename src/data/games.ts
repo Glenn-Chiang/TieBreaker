@@ -51,4 +51,11 @@ export const GAMES: Game[] = [
     icon: "/src/assets/stats_icon.png",
     maxPlayers: null,
   },
+  {
+    id: "balloon-pop",
+    name: "Balloon Pop",
+    description: "Take turns to pump the balloon until it pops",
+    icon: "/src/assets/balloon_icon.png",
+    maxPlayers: null
+  }
 ];

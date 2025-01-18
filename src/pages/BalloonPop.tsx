@@ -1,14 +1,11 @@
-import GameBanner from "../components/GameBanner";
-import { GAMES } from "../data/games";
+import { Box, Button } from "@mui/material";
 import { useState } from "react";
-import { Button, Box } from "@mui/material";
 import balloon1 from "../assets/balloon_1.jpg";
 import balloon2 from "../assets/balloon_2.jpg";
 import balloon3 from "../assets/balloon_3.jpg";
 import explosion from "../assets/explosion.mp4";
 
 export default function BalloonPop() {
-  const gameData = GAMES.find((data) => data.id === "coin-toss")!;
   const [chance, setChance] = useState<number>(0);
   const [gameState, setGameState] = useState<string>("start");
   const [animPlaying, setPlay] = useState<boolean>(false);
@@ -67,7 +64,6 @@ export default function BalloonPop() {
 
   return (
     <>
-      <GameBanner gameData={gameData} />
       <Box
         sx={{
           width: "100vw",
@@ -97,7 +93,7 @@ export default function BalloonPop() {
         )}
       </Box>
 
-      {!animPlaying && <Button onClick={handleClick}>{getButtonText()}</Button>}
+      {!animPlaying && <Button fullWidth variant="contained" onClick={handleClick}>{getButtonText()}</Button>}
     </>
   );
 }
