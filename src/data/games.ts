@@ -54,7 +54,7 @@ export const GAMES: Game[] = [
   {
     id: "stat-challenge",
     name: "Stats Challenge",
-    description: "Click the button to generate a random question. Whoever has the highest stats wins!",
+    description: "Click the button to generate a random statistical question. Whoever has the highest stats wins!",
     icon: statsIcon,
     maxPlayers: null,
   },
