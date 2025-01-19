@@ -11,7 +11,7 @@ import {
   SelectChangeEvent,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useConfetti } from "../components/ConfettiProvider";
@@ -154,6 +154,14 @@ export default function TypingTest() {
 
   const confetti = useConfetti();
 
+  // Auto scroll to input element
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, []);
+
   return (
     <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
       {(gameState === "pre-game" || gameState === "post-game") && (
@@ -178,6 +186,7 @@ export default function TypingTest() {
             <CardHeader title={currentWord} sx={{ textAlign: "center" }} />
           </Card>
           <TextField
+            ref={inputRef}
             fullWidth
             variant="outlined"
             autoFocus
