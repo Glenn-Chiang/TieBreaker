@@ -58,7 +58,7 @@ export default function TypingTest() {
   };
 
   // Current player's score
-  const currentScore = scores[currentPlayerId];
+  const currentScore = scores[currentPlayerId] || 0;
 
   const intervalRef = useRef<number | null>(null);
 
@@ -227,7 +227,7 @@ function ScoresList({ scores }: ScoresListProps) {
         <Stack spacing={1}>
           {scores.map((score, index) => (
             <Typography>
-              P{index + 1} Score: {score}
+              P{index + 1} Score: {score || 0}
             </Typography>
           ))}
         </Stack>
