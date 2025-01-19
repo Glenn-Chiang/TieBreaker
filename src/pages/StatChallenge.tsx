@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Button, Typography, Container, keyframes, useTheme } from "@mui/material";
+import { Button, Container, keyframes, Typography, useTheme } from "@mui/material";
+import { useState } from "react";
 
 // Question button flicker animation
 const flickerAnimation = keyframes`
