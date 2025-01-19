@@ -5,25 +5,33 @@ import {
   Card,
   CardContent,
   CardHeader,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Stack,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
+import { useConfetti } from "../components/ConfettiProvider";
+import ResultAlert from "../components/ResultAlert";
 import { StartButton } from "../components/StartButton";
 import { TimerBar } from "../components/TimerBar";
-import ResultAlert from "../components/ResultAlert";
-import { useConfetti } from "../components/ConfettiProvider";
 
 type GameState = "pre-game" | "test-active" | "inter-test" | "post-game";
 
 export default function TypingTest() {
   const [gameState, setGameState] = useState<GameState>("pre-game");
-  const TEST_DURATION = 10;
-  // List of words used in test
-  const [words, setWords] = useState<string[]>([])
 
-  const [timer, setTimer] = useState(TEST_DURATION); // Remaining time
+  // Allow user to set the duration of the test
+  const DURATION_OPTIONS = [10, 30, 60];
+  const [duration, setDuration] = useState(10);
+
+  // List of words used in test
+  const [words, setWords] = useState<string[]>([]);
+
+  const [timer, setTimer] = useState(duration); // Remaining time
   const [currentWord, setCurrentWord] = useState("");
   const [input, setInput] = useState("");
   const [currentPlayerId, setCurrentPlayerId] = useState<number>(-1);
@@ -36,13 +44,13 @@ export default function TypingTest() {
         const res = await fetch("/src/assets/word_list.txt");
         const text = await res.text();
         const wordList = text.split("\n").map((word) => word.trim());
-        setWords(wordList)
+        setWords(wordList);
       } catch (err) {
-        console.log("Error loading word list:", err)
+        console.log("Error loading word list:", err);
       }
-    }
-    loadFile()
-  }, [])
+    };
+    loadFile();
+  }, []);
 
   // Randomly select a word from the list
   const getWord = (): string => {
@@ -59,8 +67,8 @@ export default function TypingTest() {
     setInput("");
     setCurrentPlayerId(-1);
     setScores([]);
-    setTimer(TEST_DURATION);
-    confetti.deactivate()
+    setTimer(duration);
+    confetti.deactivate();
 
     startTest();
   };
@@ -69,7 +77,7 @@ export default function TypingTest() {
     setGameState("test-active");
 
     // Reset timer
-    setTimer(TEST_DURATION);
+    setTimer(duration);
 
     // Move to next player
     setCurrentPlayerId((prev) => prev + 1);
@@ -81,7 +89,7 @@ export default function TypingTest() {
 
     setTimeout(() => {
       endTest();
-    }, TEST_DURATION * 1000);
+    }, duration * 1000);
 
     // Update timer
     intervalRef.current = setInterval(() => {
@@ -103,7 +111,7 @@ export default function TypingTest() {
   // End the game for all players
   const endGame = () => {
     setGameState("post-game");
-    confetti.activate()
+    confetti.activate();
   };
 
   // Handle typing
@@ -140,16 +148,23 @@ export default function TypingTest() {
   // Determine id of winner
   const determineWinner = (): number => {
     return scores.indexOf(Math.max(...scores)) + 1;
-  }
+  };
 
   const winnerId = determineWinner();
 
-  const confetti = useConfetti()
+  const confetti = useConfetti();
 
   return (
     <Box width={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
       {(gameState === "pre-game" || gameState === "post-game") && (
-        <StartButton handleClick={startGame} />
+        <Stack spacing={1}>
+          <Dropdown
+            value={duration}
+            setValue={setDuration}
+            options={DURATION_OPTIONS}
+          />
+          <StartButton handleClick={startGame} />
+        </Stack>
       )}
 
       {gameState === "test-active" && (
@@ -157,7 +172,7 @@ export default function TypingTest() {
           <Typography variant="h6">
             P{currentPlayerId + 1} Score: {currentScore}
           </Typography>
-          <TimerBar timer={timer} maxTimer={TEST_DURATION} />
+          <TimerBar timer={timer} maxTimer={duration} />
 
           <Card>
             <CardHeader title={currentWord} sx={{ textAlign: "center" }} />
@@ -186,26 +201,61 @@ export default function TypingTest() {
           <Button variant="contained" onClick={endGame}>
             End Game
           </Button>
+          <ScoresList scores={scores} />
         </Stack>
       )}
 
       {gameState === "post-game" && (
         <Stack spacing={1}>
           {<ResultAlert winnerId={winnerId} />}
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Scores</Typography>
-              <Stack spacing={1}>
-                {scores.map((score, index) => (
-                  <Typography>
-                    P{index + 1} Score: {score}
-                  </Typography>
-                ))}
-              </Stack>
-            </CardContent>
-          </Card>
+          <ScoresList scores={scores} />
         </Stack>
       )}
     </Box>
+  );
+}
+
+interface ScoresListProps {
+  scores: number[];
+}
+
+function ScoresList({ scores }: ScoresListProps) {
+  return (
+    <Card>
+      <CardContent>
+        <Typography variant="h6">Scores</Typography>
+        <Stack spacing={1}>
+          {scores.map((score, index) => (
+            <Typography>
+              P{index + 1} Score: {score}
+            </Typography>
+          ))}
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
+
+interface DropdownProps {
+  value: number;
+  setValue: (value: number) => void;
+  options: number[];
+}
+
+function Dropdown({ value, setValue, options }: DropdownProps) {
+  const handleChange = (event: SelectChangeEvent) => {
+    setValue(Number(event.target.value));
+  };
+
+  return (
+    <FormControl>
+      <Select value={value.toString()} onChange={handleChange}>
+        {options.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}s
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
