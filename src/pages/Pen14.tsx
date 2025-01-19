@@ -129,13 +129,13 @@ export default function Pen14() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          width: "100vw",
+          width: "100%",
           bgcolor: "background.default",
-          padding: 3,
+          
         }}
       >
         {gameState === "start" ? (
-          <Button onClick={handleStart}>Start</Button>
+          <Button fullWidth variant="contained" onClick={handleStart}>Start</Button>
         ) : gameState === "play" ? (
           <>
             <Typography variant="h4" gutterBottom>
