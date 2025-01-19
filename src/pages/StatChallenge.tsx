@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Typography, Container, keyframes, useTheme } from "@mui/material";
 
-// Generate question button flicker animation
+// Question button flicker animation
 const flickerAnimation = keyframes`
   0% {
     box-shadow: 0 0 8px rgba(255, 87, 34, 0.6), 0 0 16px rgba(255, 152, 0, 0.5);
@@ -15,7 +15,7 @@ const flickerAnimation = keyframes`
 `;
 
 function StatChallenge() {
-  const theme = useTheme(); // Access the MUI theme
+  const theme = useTheme();
   const questions = [
     "Fastest 2.4km timing?",
     "Heaviest squat/bench/deadlift?",
@@ -23,6 +23,8 @@ function StatChallenge() {
     "Most cooked for uni?",
     "Stays nearest to campus?",
     "Highest GPA/CAP?",
+    "Most number of internships done?",
+    "Most number of mods taken this sem?",
   ];
 
   // Map each question to a corresponding image
@@ -32,21 +34,17 @@ function StatChallenge() {
     "Most number of SUs used?": "/src/assets/su.jpeg",
     "Most cooked for uni?": "/src/assets/cooked.jpeg",
     "Stays nearest to campus?": "/src/assets/nus.jpg",
-    "Highest GPA/CAP?": "/src/assets/grades.png", // Example image for "Stays nearest to campus"
+    "Highest GPA/CAP?": "/src/assets/grades.png",
+    "Most number of internships done?": "/src/assets/internships.png",
+    "Most number of mods taken this sem?": "/src/assets/nusmods.png",
   };
 
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
   const [gameOver, setGameOver] = useState(false); // Track if all questions have been asked
+  const [isVisible, setIsVisible] = useState(true); // Visibility state for transitions
 
-  // This effect will generate a new question after game reset
-  useEffect(() => {
-    if (gameOver) {
-      // Generate a new question after game over is reset
-      generateQuestion();
-    }
-  }, [gameOver]); // Only runs when `gameOver` is true
-
+  // Generate a random question
   function getRandomQuestion() {
     if (remainingQuestions.length === 0) {
       setGameOver(true); // All questions have been asked
@@ -61,6 +59,7 @@ function StatChallenge() {
     return selectedQuestion;
   }
 
+  // Generate a new question with a transition
   function generateQuestion() {
     if (gameOver) {
       // Reset the game state
@@ -68,10 +67,20 @@ function StatChallenge() {
       setGameOver(false);
     }
 
-    // Generate a new question after resetting or if game is ongoing
-    const newQuestion = getRandomQuestion();
-    setCurrentQuestion(newQuestion);
+    // Trigger fade-out effect before changing the question
+    setIsVisible(false);
+    setTimeout(() => {
+      const newQuestion = getRandomQuestion();
+      setCurrentQuestion(newQuestion);
+      setIsVisible(true); // Trigger fade-in effect
+    }, 300); // 300ms for fade-out effect
   }
+
+  // Styling for fade effect
+  const fadeStyle = {
+    opacity: isVisible ? 1 : 0,
+    transition: "opacity 0.3s ease-in-out", // Smooth fade transition
+  };
 
   return (
     <>
@@ -81,7 +90,7 @@ function StatChallenge() {
           padding: "40px",
           borderRadius: "12px",
           textAlign: "center",
-          boxShadow: theme.shadows[4], // Use theme shadow
+          boxShadow: theme.shadows[4],
         }}
       >
         {!currentQuestion && (
@@ -110,7 +119,7 @@ function StatChallenge() {
         )}
 
         {currentQuestion && (
-          <>
+          <div style={fadeStyle}>
             <Typography
               variant="h5"
               component="h2"
@@ -130,16 +139,17 @@ function StatChallenge() {
                   alt={currentQuestion}
                   style={{
                     maxWidth: "50%",
-                    height: "auto", // Maintain aspect ratio
+                    height: "auto",
                     marginBottom: "20px",
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
+                    ...fadeStyle, // Apply the fade effect to the image
                   }}
                 />
               </div>
             )}
-          </>
+          </div>
         )}
 
         <Button
