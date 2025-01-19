@@ -37,6 +37,8 @@ export default function TypingTest() {
   const [currentPlayerId, setCurrentPlayerId] = useState<number>(-1);
   const [scores, setScores] = useState<number[]>([]);
 
+  const [wrong, setWrong] = useState(false);
+
   // Load the txt file containing word list
   useEffect(() => {
     const loadFile = async () => {
@@ -84,6 +86,7 @@ export default function TypingTest() {
 
     // Reset input
     setInput("");
+    setWrong(false)
 
     setCurrentWord(getWord());
 
@@ -121,10 +124,14 @@ export default function TypingTest() {
 
   // Listen for enter key
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
-    if (event.key !== "Enter") return;
+    if (event.key !== "Enter") {
+      setWrong(false);
+      return
+    }
 
     // Check if input is correct word
     if (input.toLowerCase() === currentWord.toLowerCase()) {
+      setWrong(false)
       // Get next word
       setCurrentWord(getWord());
       // Increment the current player's score by 1
@@ -132,7 +139,7 @@ export default function TypingTest() {
       // Clear input
       setInput("");
     } else {
-      console.log("wrong");
+      setWrong(true);
     }
   };
 
@@ -193,6 +200,7 @@ export default function TypingTest() {
             value={input}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
+            color={wrong ? "error" : "primary"}
           />
         </Stack>
       )}
