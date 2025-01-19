@@ -14,13 +14,7 @@ export const GAMES: Game[] = [
     icon: "/assets/coin_icon.png",
     maxPlayers: 2,
   },
-  {
-    id: "dice-roll",
-    name: "Dice Roll",
-    description: "Highest roll wins",
-    icon: "/assets/dice_icon.png",
-    maxPlayers: 2,
-  },
+  
   {
     id: "spin-the-wheel",
     name: "Spin the Wheel",
