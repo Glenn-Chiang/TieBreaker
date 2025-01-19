@@ -124,7 +124,7 @@ export default function TypingTest() {
     if (event.key !== "Enter") return;
 
     // Check if input is correct word
-    if (input === currentWord) {
+    if (input.toLowerCase() === currentWord.toLowerCase()) {
       // Get next word
       setCurrentWord(getWord());
       // Increment the current player's score by 1
