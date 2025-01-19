@@ -1,17 +1,15 @@
 import { Box, Button } from "@mui/material";
 import { useRef, useState } from "react";
-import headVideo from "../assets/heads_flip.mp4";
-import tailVideo from "../assets/tails_flip.mp4";
 
 export default function CoinToss() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [video, setVideo] = useState(headVideo);
+  const [video, setVideo] = useState("/assets/heads_flip.mp4");
 
   const onFlip = () => {
     if (Math.random() > 0.5) {
-      setVideo(tailVideo);
+      setVideo("/assets/tails_flip.mp4");
     } else {
-      setVideo(headVideo);
+      setVideo("/assets/heads_flip.mp4");
     }
 
     if (videoRef.current) {

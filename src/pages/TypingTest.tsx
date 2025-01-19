@@ -41,7 +41,7 @@ export default function TypingTest() {
   useEffect(() => {
     const loadFile = async () => {
       try {
-        const res = await fetch("/src/assets/word_list.txt");
+        const res = await fetch("/assets/word_list.txt");
         const text = await res.text();
         const wordList = text.split("\n").map((word) => word.trim());
         setWords(wordList);

@@ -1,9 +1,10 @@
 import { Box, Button } from "@mui/material";
 import { useState } from "react";
-import balloon1 from "../assets/balloon_1.jpg";
-import balloon2 from "../assets/balloon_2.jpg";
-import balloon3 from "../assets/balloon_3.jpg";
-import explosion from "../assets/explosion.mp4";
+
+const balloon1 = "/assets/balloon_1.jpg";
+const balloon2 = "/assets/balloon_2.jpg";
+const balloon3 = "/assets/balloon_3.jpg";
+const explosion = "/assets/explosion.mp4";
 
 export default function BalloonPop() {
   const [chance, setChance] = useState<number>(0);

@@ -29,14 +29,14 @@ function StatChallenge() {
 
   // Map each question to a corresponding image
   const questionImages: { [key: string]: string } = {
-    "Fastest 2.4km timing?": "/src/assets/run.jpeg",
-    "Heaviest squat/bench/deadlift?": "/src/assets/sbd.jpg",
-    "Most number of SUs used?": "/src/assets/su.jpeg",
-    "Most cooked for uni?": "/src/assets/cooked.jpeg",
-    "Stays nearest to campus?": "/src/assets/nus.jpg",
-    "Highest GPA/CAP?": "/src/assets/grades.png",
-    "Most number of internships done?": "/src/assets/internships.png",
-    "Most number of mods taken this sem?": "/src/assets/nusmods.png",
+    "Fastest 2.4km timing?": "/assets/run.jpeg",
+    "Heaviest squat/bench/deadlift?": "/assets/sbd.jpg",
+    "Most number of SUs used?": "/assets/su.jpeg",
+    "Most cooked for uni?": "/assets/cooked.jpeg",
+    "Stays nearest to campus?": "/assets/nus.jpg",
+    "Highest GPA/CAP?": "/assets/grades.png",
+    "Most number of internships done?": "/assets/internships.png",
+    "Most number of mods taken this sem?": "/assets/nusmods.png",
   };
 
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
