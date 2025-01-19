@@ -9,30 +9,45 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StartButton } from "../components/StartButton";
 import { TimerBar } from "../components/TimerBar";
 import ResultAlert from "../components/ResultAlert";
 import { useConfetti } from "../components/ConfettiProvider";
-
-const words = ["hello", "world", "good", "bye"];
-
-const getWord = (): string => {
-  return words[Math.floor(Math.random() * words.length)];
-};
 
 type GameState = "pre-game" | "test-active" | "inter-test" | "post-game";
 
 export default function TypingTest() {
   const [gameState, setGameState] = useState<GameState>("pre-game");
   const TEST_DURATION = 10;
+  // List of words used in test
+  const [words, setWords] = useState<string[]>([])
 
   const [timer, setTimer] = useState(TEST_DURATION); // Remaining time
   const [currentWord, setCurrentWord] = useState("");
   const [input, setInput] = useState("");
-
   const [currentPlayerId, setCurrentPlayerId] = useState<number>(-1);
   const [scores, setScores] = useState<number[]>([]);
+
+  // Load the txt file containing word list
+  useEffect(() => {
+    const loadFile = async () => {
+      try {
+        const res = await fetch("/src/assets/word_list.txt");
+        const text = await res.text();
+        const wordList = text.split("\n").map((word) => word.trim());
+        setWords(wordList)
+      } catch (err) {
+        console.log("Error loading word list:", err)
+      }
+    }
+    loadFile()
+  }, [])
+
+  // Randomly select a word from the list
+  const getWord = (): string => {
+    return words[Math.floor(Math.random() * words.length)];
+  };
 
   // Current player's score
   const currentScore = scores[currentPlayerId];
