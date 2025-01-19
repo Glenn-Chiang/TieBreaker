@@ -95,13 +95,14 @@ export default function Pen14() {
   const handleStart = () => {
     setIsRunning(true);
     setGameState("play");
+    setCount(10);
   };
 
   const handleLose = () => {
     console.log("lose");
     setIsRunning(false);
     clearInterval(timerId);
-    setCount(10);
+    setThreshold(30);
     setGameState("lose");
   };
 

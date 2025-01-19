@@ -62,7 +62,7 @@ export const GAMES: Game[] = [
     id: "pen14",
     name: "Pen14",
     description: "In a public space, choose a word, take turns to say the word with increasing volume, first one who chickens out loses",
-    icon: "/src/assets/balloon_icon.jpg",
+    icon: "/src/assets/pen_icon.png",
     maxPlayers: null
   },
   {
