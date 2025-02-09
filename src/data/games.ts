@@ -23,11 +23,18 @@ export const GAMES: Game[] = [
     maxPlayers: 6,
   },
   {
+    id: "dice-roll",
+    name: "dice",
+    description: "",
+    icon: "/assets/dice_icon.png",
+    maxPlayers: 2
+  },
+  {
     id: "reaction-test",
     name: "Reaction Test",
     icon: "/assets/bolt_icon.webp",
     description:
-      "When the blue buttons turns green, click as fast as you can. If you click early, you lose immediately.",
+      "When the blue buttons turns green, click as fast as you can. If you click early, you will lose immediately.",
     maxPlayers: 2,
   },
   {
